@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Exchange.iml" filepath="$PROJECT_DIR$/Exchange.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GreenDAOGenerator/GreenDAOGenerator.iml" filepath="$PROJECT_DIR$/GreenDAOGenerator/GreenDAOGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-app/android-app.iml" filepath="$PROJECT_DIR$/android-app/android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-app/libraries/android-rest/android-rest.iml" filepath="$PROJECT_DIR$/android-app/libraries/android-rest/android-rest.iml" />
     </modules>
