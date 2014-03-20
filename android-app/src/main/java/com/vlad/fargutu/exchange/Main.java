@@ -1,8 +1,13 @@
 package com.vlad.fargutu.exchange;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.vlad.fargutu.exchange.models.Bank;
+
+import java.util.List;
 
 import ly.apps.android.rest.client.Callback;
 import ly.apps.android.rest.client.Response;
@@ -15,19 +20,16 @@ import ly.apps.android.rest.client.annotations.RestService;
 
 public class Main extends Activity {
 
-//    private String baseUrl = "http://api.openweathermap.org/data/2.5";
-    //    private String baseUrl = "http://vladdid.com";
-        private String baseUrl = "http://53cd7b22-a3e7-496c-a47c-14e060.appspot.com";
+    private String baseUrl = "http://53cd7b22-a3e7-496c-a47c-14e060.appspot.com";
     private TextView myTextView;
+
+    private ProgressDialog mProgress;
 
     @RestService
     public interface OpenWeatherAPI {
 
-//        @GET("/weather")
-//        @GET("/curs.php")
-//        @GET("/cursuri.php")
         @GET("/banks")
-        void getForecast(@QueryParam("course") String latitude, Callback<ForecastResponse> callback);
+        void getForecast(@QueryParam("course") String latitude, Callback<List<Bank>> callback);
 
     }
 
@@ -38,34 +40,32 @@ public class Main extends Activity {
 
         myTextView = (TextView) findViewById(R.id.myTextView);
 
+        mProgress = new ProgressDialog(Main.this);
+        mProgress.setMessage("Please wait ...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
+        mProgress.show();
+
         RestClient client = RestClientFactory.defaultClient(this);
         OpenWeatherAPI api = RestServiceFactory.getService(baseUrl, OpenWeatherAPI.class, client);
 
-        api.getForecast("EUR", new Callback<ForecastResponse>() {
+        api.getForecast("EUR", new Callback<List<Bank>>() {
 
             @Override
-            public void onResponse(Response<ForecastResponse> response) {
+            public void onResponse(Response<List<Bank>> response) {
                 // This will be invoke in the UI thread after serialization with your objects ready to use
 
                 if (response.getRawData() != null) {
-                    myTextView.setText(response.getRawData());
+
+                    myTextView.setText(response.getResult().toString());
+
                 }
+
+                mProgress.dismiss();
             }
 
         });
-    }
 
-    public class ForecastResponse {
-
-        private String name;
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
     }
 
 }
