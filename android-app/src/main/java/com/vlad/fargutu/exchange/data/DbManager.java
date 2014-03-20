@@ -1,4 +1,4 @@
-package com.vlad.fargutu.exchange.util;
+package com.vlad.fargutu.exchange.data;
 
 import android.content.Context;
 
@@ -29,6 +29,10 @@ public class DbManager {
 
         }
         return instance;
+    }
+
+    public DaoMaster.DevOpenHelper getPersistenceHelper() {
+        return this.persistenceHelper;
     }
 
     public synchronized void closePersistenceHelper() {
