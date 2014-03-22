@@ -26,10 +26,10 @@ public class RestService {
     private Context context;
 
     @ly.apps.android.rest.client.annotations.RestService
-    public interface OpenWeatherAPI {
+    public interface RestFullAPI {
 
         @GET("/banks")
-        void getForecast(@QueryParam("course") String latitude, Callback<List<Bank>> callback);
+        void getForecast(@QueryParam("course") String course, Callback<List<Bank>> callback);
 
     }
 
@@ -46,7 +46,7 @@ public class RestService {
         mProgress.show();
 
         RestClient client = RestClientFactory.defaultClient(context);
-        OpenWeatherAPI api = RestServiceFactory.getService(baseUrl, OpenWeatherAPI.class, client);
+        RestFullAPI api = RestServiceFactory.getService(baseUrl, RestFullAPI.class, client);
 
 //        api.getForecast("EUR", new Callback<List<Bank>>() {
 //

@@ -2,9 +2,9 @@ package com.exchange.diagrams;
 
 import android.content.Context;
 
+import com.exchange.R;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.LineGraphView;
-import com.vlad.fargutu.exchange.R;
 
 import java.util.List;
 

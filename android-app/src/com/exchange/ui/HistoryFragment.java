@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.vlad.fargutu.exchange.R;
+import com.exchange.R;
 
 /**
  * @author vlad.fargutu

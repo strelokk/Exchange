@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.exchange.ui.HistoryFragment;
-import com.vlad.fargutu.exchange.R;
 
 public class Main extends Activity {
 
