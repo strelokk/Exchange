@@ -1,2 +1,1 @@
-include ':android-app', ':GreenDAOGenerator'
-include ':android-app:libraries:android-rest'
+include ':android-app', ':GreenDAOGenerator', ':android-rest'

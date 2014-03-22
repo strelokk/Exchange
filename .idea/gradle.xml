@@ -11,8 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/GreenDAOGenerator" />
             <option value="$PROJECT_DIR$/android-app" />
-            <option value="$PROJECT_DIR$/android-app/libraries" />
-            <option value="$PROJECT_DIR$/android-app/libraries/android-rest" />
+            <option value="$PROJECT_DIR$/android-rest" />
           </set>
         </option>
       </GradleProjectSettings>
