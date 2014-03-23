@@ -10,8 +10,8 @@ public class CourseValue {
     private Float purchase;
     private Float sale;
     private java.util.Date updatedDate;
-    private Long courseId;
-    private Long bankId;
+    private String courseCode;
+    private String bankName;
 
     public CourseValue() {
     }
@@ -20,13 +20,13 @@ public class CourseValue {
         this.id = id;
     }
 
-    public CourseValue(long id, Float purchase, Float sale, java.util.Date updatedDate, Long courseId, Long bankId) {
+    public CourseValue(long id, Float purchase, Float sale, java.util.Date updatedDate, String courseCode, String bankName) {
         this.id = id;
         this.purchase = purchase;
         this.sale = sale;
         this.updatedDate = updatedDate;
-        this.courseId = courseId;
-        this.bankId = bankId;
+        this.courseCode = courseCode;
+        this.bankName = bankName;
     }
 
     public long getId() {
@@ -61,20 +61,20 @@ public class CourseValue {
         this.updatedDate = updatedDate;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
-    public Long getBankId() {
-        return bankId;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBankId(Long bankId) {
-        this.bankId = bankId;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
 }

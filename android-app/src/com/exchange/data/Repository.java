@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class Repository {
 
-    protected SQLiteDatabase db;
+    private SQLiteDatabase db;
     private Context context;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
 
-    protected Repository(Context context) {
+    public Repository(Context context) {
         this.context = context;
         initDatabase();
     }

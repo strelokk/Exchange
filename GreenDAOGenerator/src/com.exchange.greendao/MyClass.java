@@ -1,4 +1,4 @@
-package com.vlad.fargutu.greendao;
+package com.exchange.greendao;
 
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
@@ -8,7 +8,7 @@ import de.greenrobot.daogenerator.Schema;
 public class MyClass {
 
     public static void main(String args[]) throws Exception {
-        Schema schema = new Schema(3, "com.vlad.fargutu.exchange.dao");
+        Schema schema = new Schema(3, "com.exchange.dao");
 
         Entity course = schema.addEntity("Course");
         course.addIdProperty().notNull();
@@ -21,8 +21,8 @@ public class MyClass {
         courseValue.addFloatProperty("purchase");
         courseValue.addFloatProperty("sale");
         courseValue.addDateProperty("updatedDate");
-        courseValue.addLongProperty("courseId");
-        courseValue.addLongProperty("bankId");
+        courseValue.addStringProperty("courseCode");
+        courseValue.addStringProperty("bankName");
 
         Entity branch = schema.addEntity("Branch");
         branch.addIdProperty().notNull();
@@ -38,7 +38,7 @@ public class MyClass {
         bank.addDateProperty("updatedDate");
         bank.addToMany(branch, bankId);
 
-        new DaoGenerator().generateAll(schema, "D:/Development/Contests/Exchange/android-app/src/main/java/");
+        new DaoGenerator().generateAll(schema, "D:/Development/Contests/Exchange/android-app/src/");
     }
 
 }

@@ -1,13 +1,13 @@
-package com.exchange.models;
+package com.exchange.rest.models;
 
 /**
  * Created by vlad.fargutu on 3/20/14.
  */
-public class Branch {
+public class JBranch {
 
     private String name;
-    private Float latitude;
-    private Float longitude;
+    private String latitude;
+    private String longitude;
     private String address;
 
     public String getName() {
@@ -18,26 +18,25 @@ public class Branch {
         this.name = name;
     }
 
-    public Float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
     public String getAddress() {
         return address;
     }
-
 
     public void setAddress(String address) {
         this.address = address;
