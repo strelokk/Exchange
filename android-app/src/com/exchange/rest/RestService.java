@@ -147,8 +147,8 @@ public class RestService {
             branch.setAddress(b.getAddress());
 
             try {
-                branch.setLatitude(Long.valueOf(b.getLatitude()));
-                branch.setLongitude(Long.valueOf(b.getLongitude()));
+                branch.setLatitude(Double.valueOf(b.getLatitude()));
+                branch.setLongitude(Double.valueOf(b.getLongitude()));
             } catch (NumberFormatException e) {
                 e.getMessage();
             }

@@ -27,16 +27,16 @@ public class MyClass {
         Entity branch = schema.addEntity("Branch");
         branch.addIdProperty().notNull();
         branch.addStringProperty("name").notNull();
-        branch.addLongProperty("latitude");
-        branch.addLongProperty("longitude");
+        branch.addDoubleProperty("latitude");
+        branch.addDoubleProperty("longitude");
         branch.addStringProperty("address");
-        Property bankId = branch.addLongProperty("bankId").getProperty();
+        Property bankId = branch.addLongProperty("bankId").notNull().getProperty();
 
         Entity bank = schema.addEntity("Bank");
         bank.addIdProperty().notNull();
         bank.addStringProperty("name").notNull();
         bank.addDateProperty("updatedDate");
-        bank.addToMany(branch, bankId);
+        bank.addToMany(branch, bankId) ;
 
         new DaoGenerator().generateAll(schema, "D:/Development/Contests/Exchange/android-app/src/");
     }

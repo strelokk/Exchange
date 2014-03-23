@@ -28,10 +28,10 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Latitude = new Property(2, Long.class, "latitude", false, "LATITUDE");
-        public final static Property Longitude = new Property(3, Long.class, "longitude", false, "LONGITUDE");
+        public final static Property Latitude = new Property(2, Double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(3, Double.class, "longitude", false, "LONGITUDE");
         public final static Property Address = new Property(4, String.class, "address", false, "ADDRESS");
-        public final static Property BankId = new Property(5, Long.class, "bankId", false, "BANK_ID");
+        public final static Property BankId = new Property(5, long.class, "bankId", false, "BANK_ID");
     };
 
     private Query<Branch> bank_BranchListQuery;
@@ -50,10 +50,10 @@ public class BranchDao extends AbstractDao<Branch, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'BRANCH' (" + //
                 "'_id' INTEGER PRIMARY KEY NOT NULL ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
-                "'LATITUDE' INTEGER," + // 2: latitude
-                "'LONGITUDE' INTEGER," + // 3: longitude
+                "'LATITUDE' REAL," + // 2: latitude
+                "'LONGITUDE' REAL," + // 3: longitude
                 "'ADDRESS' TEXT," + // 4: address
-                "'BANK_ID' INTEGER);"); // 5: bankId
+                "'BANK_ID' INTEGER NOT NULL );"); // 5: bankId
     }
 
     /** Drops the underlying database table. */
@@ -69,25 +69,21 @@ public class BranchDao extends AbstractDao<Branch, Long> {
         stmt.bindLong(1, entity.getId());
         stmt.bindString(2, entity.getName());
  
-        Long latitude = entity.getLatitude();
+        Double latitude = entity.getLatitude();
         if (latitude != null) {
-            stmt.bindLong(3, latitude);
+            stmt.bindDouble(3, latitude);
         }
  
-        Long longitude = entity.getLongitude();
+        Double longitude = entity.getLongitude();
         if (longitude != null) {
-            stmt.bindLong(4, longitude);
+            stmt.bindDouble(4, longitude);
         }
  
         String address = entity.getAddress();
         if (address != null) {
             stmt.bindString(5, address);
         }
- 
-        Long bankId = entity.getBankId();
-        if (bankId != null) {
-            stmt.bindLong(6, bankId);
-        }
+        stmt.bindLong(6, entity.getBankId());
     }
 
     /** @inheritdoc */
@@ -102,10 +98,10 @@ public class BranchDao extends AbstractDao<Branch, Long> {
         Branch entity = new Branch( //
             cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // latitude
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // longitude
+            cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2), // latitude
+            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // longitude
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // address
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // bankId
+            cursor.getLong(offset + 5) // bankId
         );
         return entity;
     }
@@ -115,10 +111,10 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     public void readEntity(Cursor cursor, Branch entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
-        entity.setLatitude(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
-        entity.setLongitude(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setLatitude(cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2));
+        entity.setLongitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
         entity.setAddress(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setBankId(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setBankId(cursor.getLong(offset + 5));
      }
     
     /** @inheritdoc */
@@ -145,7 +141,7 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     }
     
     /** Internal query to resolve the "branchList" to-many relationship of Bank. */
-    public List<Branch> _queryBank_BranchList(Long bankId) {
+    public List<Branch> _queryBank_BranchList(long bankId) {
         synchronized (this) {
             if (bank_BranchListQuery == null) {
                 QueryBuilder<Branch> queryBuilder = queryBuilder();
