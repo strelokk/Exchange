@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="list_item_front">#AAAAAA</color>
+    <color name="list_item_back">#FF7E4D8F</color>
+
+</resources>

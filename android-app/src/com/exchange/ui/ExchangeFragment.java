@@ -12,6 +12,8 @@ import com.exchange.adapters.BanksAdapter;
 import com.exchange.dao.Bank;
 import com.exchange.dao.Course;
 import com.exchange.data.Repository;
+import com.exchange.rest.RestService;
+import com.exchange.util.OnBanksDownloaded;
 import com.exchange.widgets.CourseSelectorView;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * @author vlad.fargutu
  */
-public class ExchangeFragment extends Fragment {
+public class ExchangeFragment extends Fragment implements OnBanksDownloaded {
 
     private CourseSelectorView courseSelectorView;
     private ListView banksList;
@@ -40,7 +42,8 @@ public class ExchangeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initMembers();
+        new RestService(getActivity()).doWork(ExchangeFragment.this);
+//    initMembers();
     }
 
     private void initMembers() {
@@ -63,5 +66,10 @@ public class ExchangeFragment extends Fragment {
 
     private void initBanksList(List<Bank> banks) {
         banksList.setAdapter(new BanksAdapter(getActivity(), banks));
+    }
+
+    @Override
+    public void onBanksDownloaded() {
+        initMembers();
     }
 }

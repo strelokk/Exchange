@@ -22,43 +22,28 @@ public class CourseSpinnerAdapter extends ArrayAdapter<Course> {
 
     public CourseSpinnerAdapter(Context context, List<Course> courses) {
         super(context, R.layout.course_spinner_item, courses);
-
-        this.inflater = LayoutInflater.from(context);
         this.courses = courses;
-    }
-
-    @Override
-    public int getCount() {
-        return courses != null ? courses.size() : 0;
-    }
-
-    @Override
-    public Course getItem(int position) {
-        return courses != null && courses.size() > position ? courses.get(position) : null;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.course_spinner_item, parent, false);
-
-        if (v != null) {
-            ((TextView) v.findViewById(R.id.spinner_item_textview)).setText(getItem(position).getCode());
-            return v;
-        }
-
-        return super.getView(position, convertView, parent);
+        return getCustomView(position, parent);
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.course_spinner_item, parent, false);
+        return getCustomView(position, parent);
+    }
 
-        if (v != null) {
-            ((TextView) v.findViewById(R.id.spinner_item_textview)).setText(getItem(position).getCode());
-            return v;
+    public View getCustomView(int position, ViewGroup parent) {
+        View convertView = inflater.inflate(R.layout.course_spinner_item, parent, false);
+
+        if (courses != null && courses.size() > position) {
+            ((TextView) convertView.findViewById(R.id.spinner_item_textview)).setText(courses.get(position).getCode());
         }
 
-        return super.getDropDownView(position, convertView, parent);
+        return convertView;
     }
 
 }

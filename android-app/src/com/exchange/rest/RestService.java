@@ -12,6 +12,7 @@ import com.exchange.rest.models.JBank;
 import com.exchange.rest.models.JBranch;
 import com.exchange.rest.models.JCourse;
 import com.exchange.rest.models.JCourseValue;
+import com.exchange.util.OnBanksDownloaded;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class RestService {
     private Context context;
     private ProgressDialog mProgress;
     private Repository repository;
+    private OnBanksDownloaded mCallback;
 
     public RestService(Context context) {
         super();
@@ -38,7 +40,8 @@ public class RestService {
         repository = new Repository(context);
     }
 
-    public void doWork() {
+    public void doWork(OnBanksDownloaded callback) {
+        mCallback = callback;
         mProgress.setMessage("Please wait ...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
@@ -48,8 +51,6 @@ public class RestService {
         RestFullAPI api = RestServiceFactory.getService(baseUrl, RestFullAPI.class, RestClientFactory.defaultClient(context));
 
         getBanks(api);
-//        getCourses(api);
-//        getCourseValues(api);
     }
 
     private void getBanks(final RestFullAPI api) {
@@ -167,6 +168,10 @@ public class RestService {
         if (mProgress != null && mProgress.isShowing()) {
             mProgress.dismiss();
             mProgress = null;
+        }
+
+        if (mCallback != null) {
+            mCallback.onBanksDownloaded();
         }
     }
 }

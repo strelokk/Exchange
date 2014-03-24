@@ -16,7 +16,6 @@ public class Main extends Activity {
 //        getFragmentManager().beginTransaction().replace(R.id.main_container, new HistoryFragment()).commit();
         getFragmentManager().beginTransaction().replace(R.id.main_container, new ExchangeFragment()).commit();
 
-//        new RestService(Main.this).doWork();
 
     }
 

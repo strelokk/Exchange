@@ -22,6 +22,7 @@
         android:layout_marginTop="@dimen/exchange_input_top_margin"
         android:inputType="number"
         android:gravity="right"
+        android:imeOptions="actionDone"
         android:text="@string/exchange_input_default" />
 
     <ListView

@@ -23,7 +23,7 @@ public class BanksAdapter extends ArrayAdapter<Bank> {
     public BanksAdapter(Context context, List<Bank> banks) {
         super(context, R.layout.banks_list_item, banks);
         this.banks = banks;
-        this.inflater = LayoutInflater.from(context);
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

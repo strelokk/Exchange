@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+<com.exchange.widgets.TouchableViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/list_item_height">
 
     <RelativeLayout
         android:padding="@dimen/list_items_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/list_item_front">
 
         <TextView
             android:id="@+id/bank_name"
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_right"
             android:contentDescription="@string/none" />
 
         <LinearLayout
@@ -45,16 +47,18 @@
     <RelativeLayout
         android:padding="@dimen/list_items_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/list_item_back">
 
         <ImageView
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:src="@drawable/arrow_left"
             android:layout_alignParentLeft="true"
             android:contentDescription="@string/none" />
 
     </RelativeLayout>
 
-</ViewFlipper>
+</com.exchange.widgets.TouchableViewFlipper>

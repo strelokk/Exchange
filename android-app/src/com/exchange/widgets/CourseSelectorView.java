@@ -21,7 +21,6 @@ public class CourseSelectorView extends RelativeLayout implements View.OnClickLi
 
     private Spinner fromCourseSpinner;
     private Spinner toCourseSpinner;
-//    private ImageButton inverseCourses;
 
     private List<Course> courses;
 
@@ -40,7 +39,6 @@ public class CourseSelectorView extends RelativeLayout implements View.OnClickLi
         this.toCourseSpinner = (Spinner) root.findViewById(R.id.to_course_spinner);
 
         root.findViewById(R.id.inverse_courses).setOnClickListener(CourseSelectorView.this);
-//        this.inverseCourses.setOnClickListener(CourseSelectorView.this);
     }
 
     private void inverseCourses() {
@@ -61,13 +59,13 @@ public class CourseSelectorView extends RelativeLayout implements View.OnClickLi
     }
 
     private int getCoursePositionByCode(String code) {
-        int position = 0;
+        int position = -1;
 
         for (Course c : courses) {
+            position++;
             if (c.getCode().equalsIgnoreCase(code)) {
                 return position;
             }
-            position++;
         }
 
         return position;

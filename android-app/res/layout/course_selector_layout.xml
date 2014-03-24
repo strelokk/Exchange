@@ -8,21 +8,34 @@
     <Spinner
         android:id="@+id/from_course_spinner"
         android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/spinner_padding_left_right"
+        android:paddingRight="@dimen/spinner_padding_left_right"
+        android:paddingTop="@dimen/spinner_padding_top_bottom"
+        android:background="@color/list_item_front"
+        android:layout_centerVertical="true"
+        android:paddingBottom="@dimen/spinner_padding_top_bottom"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/inverse_courses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/none"
         android:src="@drawable/icon_arrows_two_directions_left_right" />
 
     <Spinner
         android:id="@+id/to_course_spinner"
         android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/spinner_padding_left_right"
+        android:paddingRight="@dimen/spinner_padding_left_right"
+        android:paddingTop="@dimen/spinner_padding_top_bottom"
+        android:layout_centerVertical="true"
+        android:paddingBottom="@dimen/spinner_padding_top_bottom"
         android:layout_height="wrap_content"
+        android:background="@color/list_item_front"
         android:layout_alignParentRight="true" />
 
 </RelativeLayout>
