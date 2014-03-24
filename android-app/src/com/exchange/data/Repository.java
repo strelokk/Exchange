@@ -3,11 +3,15 @@ package com.exchange.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.exchange.dao.CourseValue;
+import com.exchange.dao.CourseValueDao;
 import com.exchange.dao.DaoMaster;
 import com.exchange.dao.DaoSession;
 import com.exchange.exceptions.WrongIdException;
 
 import java.util.List;
+
+import de.greenrobot.dao.DaoException;
 
 /**
  * @author vlad.fargutu
@@ -79,6 +83,33 @@ public class Repository {
         if (isDbAvailable()) {
             daoSession = daoMaster.newSession();
             result = daoSession.load(entityClass, id);
+            daoSession.clear();
+            daoSession = null;
+        }
+        return result;
+    }
+
+    /**
+     * Get the CourseValue with the given code and Bank name.
+     *
+     * @param code     the code of the Course to search value for.
+     * @param bankName the Bank name to which belongs the Course.
+     * @return a Course entity if a result was found or null otherwise.
+     */
+    public CourseValue getCourseValue(String code, String bankName) {
+        CourseValue result = null;
+
+        if (code == null || bankName == null) {
+            return null;
+        }
+
+        if (isDbAvailable()) {
+            daoSession = daoMaster.newSession();
+            try {
+                result = daoSession.queryBuilder(CourseValue.class).where(CourseValueDao.Properties.CourseCode.eq(code), CourseValueDao.Properties.BankName.eq(bankName)).build().unique();
+            } catch (DaoException e) {
+                return null;
+            }
             daoSession.clear();
             daoSession = null;
         }

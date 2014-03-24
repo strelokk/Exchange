@@ -11,13 +11,13 @@ public class MyClass {
         Schema schema = new Schema(3, "com.exchange.dao");
 
         Entity course = schema.addEntity("Course");
-        course.addIdProperty().notNull();
+        course.addIdProperty().autoincrement();
         course.addStringProperty("name").notNull();
         course.addStringProperty("code");
         course.addByteArrayProperty("icon");
 
         Entity courseValue = schema.addEntity("CourseValue");
-        courseValue.addIdProperty().notNull();
+        courseValue.addIdProperty().autoincrement();
         courseValue.addFloatProperty("purchase");
         courseValue.addFloatProperty("sale");
         courseValue.addDateProperty("updatedDate");
@@ -25,7 +25,7 @@ public class MyClass {
         courseValue.addStringProperty("bankName");
 
         Entity branch = schema.addEntity("Branch");
-        branch.addIdProperty().notNull();
+        branch.addIdProperty().autoincrement();
         branch.addStringProperty("name").notNull();
         branch.addDoubleProperty("latitude");
         branch.addDoubleProperty("longitude");
@@ -33,10 +33,10 @@ public class MyClass {
         Property bankId = branch.addLongProperty("bankId").notNull().getProperty();
 
         Entity bank = schema.addEntity("Bank");
-        bank.addIdProperty().notNull();
+        bank.addIdProperty().autoincrement();
         bank.addStringProperty("name").notNull();
         bank.addDateProperty("updatedDate");
-        bank.addToMany(branch, bankId) ;
+        bank.addToMany(branch, bankId);
 
         new DaoGenerator().generateAll(schema, "D:/Development/Contests/Exchange/android-app/src/");
     }

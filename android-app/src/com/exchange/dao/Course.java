@@ -6,7 +6,7 @@ package com.exchange.dao;
  */
 public class Course {
 
-    private long id;
+    private Long id;
     /** Not-null value. */
     private String name;
     private String code;
@@ -15,22 +15,22 @@ public class Course {
     public Course() {
     }
 
-    public Course(long id) {
+    public Course(Long id) {
         this.id = id;
     }
 
-    public Course(long id, String name, String code, byte[] icon) {
+    public Course(Long id, String name, String code, byte[] icon) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.icon = icon;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

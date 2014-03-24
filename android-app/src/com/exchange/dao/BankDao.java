@@ -23,7 +23,7 @@ public class BankDao extends AbstractDao<Bank, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property UpdatedDate = new Property(2, java.util.Date.class, "updatedDate", false, "UPDATED_DATE");
     };
@@ -44,7 +44,7 @@ public class BankDao extends AbstractDao<Bank, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'BANK' (" + //
-                "'_id' INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "'_id' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
                 "'UPDATED_DATE' INTEGER);"); // 2: updatedDate
     }
@@ -59,7 +59,11 @@ public class BankDao extends AbstractDao<Bank, Long> {
     @Override
     protected void bindValues(SQLiteStatement stmt, Bank entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindString(2, entity.getName());
  
         java.util.Date updatedDate = entity.getUpdatedDate();
@@ -77,14 +81,14 @@ public class BankDao extends AbstractDao<Bank, Long> {
     /** @inheritdoc */
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public Bank readEntity(Cursor cursor, int offset) {
         Bank entity = new Bank( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)) // updatedDate
         );
@@ -94,7 +98,7 @@ public class BankDao extends AbstractDao<Bank, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, Bank entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
         entity.setUpdatedDate(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
      }

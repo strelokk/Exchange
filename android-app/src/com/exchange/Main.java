@@ -3,8 +3,7 @@ package com.exchange;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.exchange.rest.RestService;
-import com.exchange.ui.HistoryFragment;
+import com.exchange.ui.ExchangeFragment;
 
 public class Main extends Activity {
 
@@ -14,9 +13,10 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getFragmentManager().beginTransaction().replace(R.id.main_container, new HistoryFragment()).commit();
+//        getFragmentManager().beginTransaction().replace(R.id.main_container, new HistoryFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.main_container, new ExchangeFragment()).commit();
 
-        new RestService(Main.this).doWork();
+//        new RestService(Main.this).doWork();
 
     }
 

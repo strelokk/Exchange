@@ -26,7 +26,7 @@ public class BranchDao extends AbstractDao<Branch, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Latitude = new Property(2, Double.class, "latitude", false, "LATITUDE");
         public final static Property Longitude = new Property(3, Double.class, "longitude", false, "LONGITUDE");
@@ -48,7 +48,7 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'BRANCH' (" + //
-                "'_id' INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "'_id' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
                 "'LATITUDE' REAL," + // 2: latitude
                 "'LONGITUDE' REAL," + // 3: longitude
@@ -66,7 +66,11 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     @Override
     protected void bindValues(SQLiteStatement stmt, Branch entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindString(2, entity.getName());
  
         Double latitude = entity.getLatitude();
@@ -89,14 +93,14 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     /** @inheritdoc */
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public Branch readEntity(Cursor cursor, int offset) {
         Branch entity = new Branch( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2), // latitude
             cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // longitude
@@ -109,7 +113,7 @@ public class BranchDao extends AbstractDao<Branch, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, Branch entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.getString(offset + 1));
         entity.setLatitude(cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2));
         entity.setLongitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));

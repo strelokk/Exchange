@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.exchange.widgets.CourseSelectorView
+        android:id="@+id/course_selector"
+        android:layout_marginLeft="@dimen/selectors_margin"
+        android:layout_marginRight="@dimen/selectors_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.exchange.widgets.CourseSelectorView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/selectors_margin"
+        android:layout_marginRight="@dimen/selectors_margin"
+        android:layout_marginTop="@dimen/exchange_input_top_margin"
+        android:inputType="number"
+        android:gravity="right"
+        android:text="@string/exchange_input_default" />
+
+    <ListView
+        android:id="@+id/banks_list"
+        android:layout_marginTop="@dimen/exchange_input_top_margin"
+        android:layout_marginLeft="@dimen/selectors_margin"
+        android:layout_marginRight="@dimen/selectors_margin"
+        android:dividerHeight="@dimen/default_list_divider_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

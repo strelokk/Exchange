@@ -6,7 +6,7 @@ package com.exchange.dao;
  */
 public class Branch {
 
-    private long id;
+    private Long id;
     /** Not-null value. */
     private String name;
     private Double latitude;
@@ -17,11 +17,11 @@ public class Branch {
     public Branch() {
     }
 
-    public Branch(long id) {
+    public Branch(Long id) {
         this.id = id;
     }
 
-    public Branch(long id, String name, Double latitude, Double longitude, String address, long bankId) {
+    public Branch(Long id, String name, Double latitude, Double longitude, String address, long bankId) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -30,11 +30,11 @@ public class Branch {
         this.bankId = bankId;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

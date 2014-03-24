@@ -23,7 +23,7 @@ public class CourseValueDao extends AbstractDao<CourseValue, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Purchase = new Property(1, Float.class, "purchase", false, "PURCHASE");
         public final static Property Sale = new Property(2, Float.class, "sale", false, "SALE");
         public final static Property UpdatedDate = new Property(3, java.util.Date.class, "updatedDate", false, "UPDATED_DATE");
@@ -44,7 +44,7 @@ public class CourseValueDao extends AbstractDao<CourseValue, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'COURSE_VALUE' (" + //
-                "'_id' INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "'_id' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "'PURCHASE' REAL," + // 1: purchase
                 "'SALE' REAL," + // 2: sale
                 "'UPDATED_DATE' INTEGER," + // 3: updatedDate
@@ -62,7 +62,11 @@ public class CourseValueDao extends AbstractDao<CourseValue, Long> {
     @Override
     protected void bindValues(SQLiteStatement stmt, CourseValue entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         Float purchase = entity.getPurchase();
         if (purchase != null) {
@@ -93,14 +97,14 @@ public class CourseValueDao extends AbstractDao<CourseValue, Long> {
     /** @inheritdoc */
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public CourseValue readEntity(Cursor cursor, int offset) {
         CourseValue entity = new CourseValue( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getFloat(offset + 1), // purchase
             cursor.isNull(offset + 2) ? null : cursor.getFloat(offset + 2), // sale
             cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)), // updatedDate
@@ -113,7 +117,7 @@ public class CourseValueDao extends AbstractDao<CourseValue, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, CourseValue entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPurchase(cursor.isNull(offset + 1) ? null : cursor.getFloat(offset + 1));
         entity.setSale(cursor.isNull(offset + 2) ? null : cursor.getFloat(offset + 2));
         entity.setUpdatedDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));

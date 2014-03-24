@@ -30,7 +30,6 @@ public class RestService {
     private Context context;
     private ProgressDialog mProgress;
     private Repository repository;
-    private int done = 0;
 
     public RestService(Context context) {
         super();
@@ -53,7 +52,7 @@ public class RestService {
 //        getCourseValues(api);
     }
 
-    private void getBanks(RestFullAPI api) {
+    private void getBanks(final RestFullAPI api) {
 
         api.getBanks(new Callback<List<JBank>>() {
 
@@ -71,13 +70,13 @@ public class RestService {
                         long id = repository.insert(bank);
 
                         if (id != -1) {
-                            insertBranchs(id, b.getBranches());
+                            insertBranches(id, b.getBranches());
                         }
                     }
 
                 }
 
-                onTaskComplete();
+                getCourses(api);
 
             }
 
@@ -85,7 +84,7 @@ public class RestService {
 
     }
 
-    private void getCourses(RestFullAPI api) {
+    private void getCourses(final RestFullAPI api) {
 
         api.getCourses(new Callback<List<JCourse>>() {
             @Override
@@ -102,7 +101,7 @@ public class RestService {
                     }
                 }
 
-                onTaskComplete();
+                getCourseValues(api);
 
             }
         });
@@ -140,8 +139,8 @@ public class RestService {
 
     }
 
-    private void insertBranchs(long bankId, List<JBranch> branchs) {
-        for (JBranch b : branchs) {
+    private void insertBranches(long bankId, List<JBranch> branches) {
+        for (JBranch b : branches) {
             Branch branch = new Branch();
             branch.setName(b.getName());
             branch.setAddress(b.getAddress());
@@ -160,18 +159,14 @@ public class RestService {
     }
 
     private void onTaskComplete() {
-        done++;
+        if (repository != null) {
+            repository.closeDb();
+            repository = null;
+        }
 
-        if (done == 3) {
-            if (mProgress != null && mProgress.isShowing()) {
-                mProgress.dismiss();
-                mProgress = null;
-            }
-
-            if (repository != null) {
-                repository.closeDb();
-                repository = null;
-            }
+        if (mProgress != null && mProgress.isShowing()) {
+            mProgress.dismiss();
+            mProgress = null;
         }
     }
 }

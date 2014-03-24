@@ -10,7 +10,7 @@ import de.greenrobot.dao.DaoException;
  */
 public class Bank {
 
-    private long id;
+    private Long id;
     /** Not-null value. */
     private String name;
     private java.util.Date updatedDate;
@@ -26,11 +26,11 @@ public class Bank {
     public Bank() {
     }
 
-    public Bank(long id) {
+    public Bank(Long id) {
         this.id = id;
     }
 
-    public Bank(long id, String name, java.util.Date updatedDate) {
+    public Bank(Long id, String name, java.util.Date updatedDate) {
         this.id = id;
         this.name = name;
         this.updatedDate = updatedDate;
@@ -42,11 +42,11 @@ public class Bank {
         myDao = daoSession != null ? daoSession.getBankDao() : null;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

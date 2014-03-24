@@ -6,7 +6,7 @@ package com.exchange.dao;
  */
 public class CourseValue {
 
-    private long id;
+    private Long id;
     private Float purchase;
     private Float sale;
     private java.util.Date updatedDate;
@@ -16,11 +16,11 @@ public class CourseValue {
     public CourseValue() {
     }
 
-    public CourseValue(long id) {
+    public CourseValue(Long id) {
         this.id = id;
     }
 
-    public CourseValue(long id, Float purchase, Float sale, java.util.Date updatedDate, String courseCode, String bankName) {
+    public CourseValue(Long id, Float purchase, Float sale, java.util.Date updatedDate, String courseCode, String bankName) {
         this.id = id;
         this.purchase = purchase;
         this.sale = sale;
@@ -29,11 +29,11 @@ public class CourseValue {
         this.bankName = bankName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
